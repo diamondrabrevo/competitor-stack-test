@@ -1,0 +1,51 @@
+# Node modules
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Vite cache
+.vite/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Env files
+.env
+.env.*
+
+# Supabase generated files
+.supabase/
+supabase/.temp/
+supabase/migrations/.temp/
+
+# Editor directories and files
+.idea/
+.vscode/
+*.sublime-workspace
+*.sublime-project
+
+# Coverage
+coverage/
+
+# Misc
+*.local
+*.log
+*.tgz
+
+# Optional: ignore test snapshots
+__snapshots__/
+
+# Optional: ignore storybook static build
+storybook-static/
+
+# Optional: ignore typescript build info
+*.tsbuildinfo 
