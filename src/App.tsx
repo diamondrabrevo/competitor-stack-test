@@ -1,11 +1,10 @@
-
 import { Toaster as ShadcnToaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Index from "./pages/Index";
-import MarketingPlanPage from "./pages/MarketingPlanPage";
+import CompetitorStackPage from "./pages/CompetitorStackPage";
 import NotFound from "./pages/NotFound";
 import ErrorBoundary from "./components/ErrorBoundary";
 
@@ -31,11 +30,17 @@ const App = () => (
           <Routes>
             {/* Ensure the root path strictly renders Index component */}
             <Route path="/" element={<Index />} />
-            
+
             {/* Support both URL patterns with explicit paths */}
-            <Route path="/results/:companyDomain" element={<MarketingPlanPage />} />
-            <Route path="/plan/:conversationId" element={<MarketingPlanPage />} />
-            
+            <Route
+              path="/results/:companyDomain"
+              element={<CompetitorStackPage />}
+            />
+            <Route
+              path="/plan/:conversationId"
+              element={<CompetitorStackPage />}
+            />
+
             {/* Add a catch-all route for 404 handling */}
             <Route path="*" element={<NotFound />} />
           </Routes>

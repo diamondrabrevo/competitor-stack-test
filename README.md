@@ -1,69 +1,144 @@
-# Welcome to your Lovable project
+# Competitor Stack
 
-## Project info
+A powerful AI-powered competitor analysis tool that helps you discover and analyze your top 3 competitors for any given company domain.
 
-**URL**: https://lovable.dev/projects/4155da6a-f75e-4373-bbc4-04b2da947723
+## Features
 
-## How can I edit this code?
+- 🔍 **Instant Competitor Discovery**: Get your top 3 competitors identified through advanced AI analysis
+- 📊 **Detailed Analysis**: Comprehensive insights into each competitor's strengths, weaknesses, and market positioning
+- 🎨 **Beautiful JSON Viewer**: View results in a beautiful, collapsible JSON format with syntax highlighting
+- 💾 **Data Persistence**: All analysis results are automatically saved to Supabase for future reference
+- 🌍 **Multi-language Support**: Detects user language and stores it with analysis results
 
-There are several ways of editing your application.
+## How it works
 
-**Use Lovable**
+1. Enter a company domain (e.g., netflix.com, spotify.com)
+2. Our AI analyzes the company and identifies the top 3 competitors
+3. View detailed competitor analysis in a beautiful JSON format
+4. Results are automatically saved to the database for future reference
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/4155da6a-f75e-4373-bbc4-04b2da947723) and start prompting.
+## Technologies Used
 
-Changes made via Lovable will be committed automatically to this repo.
+- **Frontend**: React, TypeScript, Vite
+- **UI**: shadcn-ui, Tailwind CSS
+- **AI**: Dust AI (Agent ID: ie0BWeH59h)
+- **Database**: Supabase (PostgreSQL)
+- **Styling**: Tailwind CSS
 
-**Use your preferred IDE**
+## Setup
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Prerequisites
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- Node.js & npm installed
+- Supabase project with the required table
 
-Follow these steps:
+### Installation
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
+1. Clone the repository:
+
+```bash
 git clone <YOUR_GIT_URL>
+cd competitor-stack-test
+```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+2. Install dependencies:
 
-# Step 3: Install the necessary dependencies.
-npm i
+```bash
+npm install
+```
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+3. Set up environment variables:
+
+```bash
+cp .env.example .env
+```
+
+Edit `.env` and add your Supabase credentials:
+
+```
+VITE_SUPABASE_URL=https://yqmuzemeyndcpovfbjqu.supabase.co
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key_here
+```
+
+4. Set up the database:
+
+   - Run the SQL migration in your Supabase project:
+
+   ```sql
+   -- Create competitor_stack table
+   CREATE TABLE IF NOT EXISTS competitor_stack (
+       id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+       company_domain TEXT NOT NULL,
+       competitors_data JSONB NOT NULL,
+       created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+       user_language TEXT
+   );
+   ```
+
+5. Start the development server:
+
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## Database Schema
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+The `competitor_stack` table stores all competitor analysis results:
 
-**Use GitHub Codespaces**
+- `id`: UUID (Primary Key)
+- `company_domain`: Text (The analyzed company domain)
+- `competitors_data`: JSONB (The complete analysis results)
+- `created_at`: Timestamp (When the analysis was performed)
+- `user_language`: Text (Optional - detected user language)
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## API Integration
 
-## What technologies are used for this project?
+The application uses Dust AI with agent ID `ie0BWeH59h` to perform competitor analysis. The agent returns detailed competitor information in JSON format.
 
-This project is built with .
+## Development
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### Project Structure
 
-## How can I deploy this project?
+```
+src/
+├── components/          # React components
+│   ├── JsonViewer.tsx   # Beautiful JSON display component
+│   └── InputForm.tsx    # Domain input form
+├── pages/               # Page components
+│   ├── Index.tsx        # Landing page
+│   └── CompetitorStackPage.tsx # Results page
+├── services/            # API and database services
+│   ├── api.ts           # Dust AI integration
+│   ├── competitorStackService.ts # Competitor stack utilities
+│   └── supabaseService.ts # Supabase operations
+├── hooks/               # Custom React hooks
+│   └── useCompetitorStackData.tsx # Data fetching hook
+└── lib/                 # Utility libraries
+    └── supabase.ts      # Supabase client configuration
+```
 
-Simply open [Lovable](https://lovable.dev/projects/4155da6a-f75e-4373-bbc4-04b2da947723) and click on Share -> Publish.
+### Key Components
 
-## I want to use a custom domain - is that possible?
+- **JsonViewer**: Displays JSON data in a beautiful, collapsible format with syntax highlighting
+- **InputForm**: Form for company domain and email input
+- **CompetitorStackPage**: Results page showing competitor analysis in JSON format
+- **useCompetitorStackData**: Hook for managing competitor analysis data and polling
 
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+## Deployment
+
+The application can be deployed to any static hosting service:
+
+- **Netlify**: Connect your GitHub repository
+- **Vercel**: Import your GitHub repository
+- **GitHub Pages**: Use GitHub Actions for deployment
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License.

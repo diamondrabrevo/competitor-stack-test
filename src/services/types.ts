@@ -1,70 +1,56 @@
 /**
- * Type definitions for the marketing plan data structures
+ * Type definitions for the competitor stack data structures
  */
 
-// Interface for the company summary section with more flexible field structure
-export interface CompanySummary {
+// Interface for competitor information
+export interface Competitor {
   name: string;
-  website: string;
-  // Primary API fields
-  activities?: string;
-  target?: string;
-  // Mapped fields for backwards compatibility 
-  industry?: string;
-  target_audience?: string;
-  // Other API fields
-  nb_employees?: string;
+  domain?: string;
+  description?: string;
+  strengths?: string[];
+  weaknesses?: string[];
+  market_position?: string;
   business_model?: string;
-  linkedin_scrape_status?: string;
-  customer_lifecycle_key_steps?: string;
-}
-
-// Interface for scenario message
-export interface ScenarioMessage {
-  title?: string;
-  description?: string;
-  content?: string;
+  target_audience?: string;
   [key: string]: any;
 }
 
-// Interface for a program scenario
-export interface ProgramScenario {
-  scenario_target?: string;
-  target?: string;
-  scenario_objective?: string;
-  objective?: string;
-  main_messages_ideas?: string;
-  main_message_ideas?: string;
-  messages?: string;
-  message_sequence?: ScenarioMessage[] | Record<string, ScenarioMessage | string>;
+// Interface for company analysis
+export interface CompanyAnalysis {
+  name: string;
+  domain: string;
+  industry?: string;
+  business_model?: string;
+  target_audience?: string;
+  market_position?: string;
   [key: string]: any;
 }
 
-// Interface for a single marketing program
-export interface MarketingProgram {
-  program_name?: string;
-  name?: string;
-  target?: string;
-  objective?: string;
-  kpi?: string;
-  description?: string;
-  scenarios?: ProgramScenario[]; // Added scenarios property
+// Interface for competitor analysis results
+export interface CompetitorAnalysis {
+  company: CompanyAnalysis;
+  competitors: Competitor[];
+  market_insights?: string;
+  recommendations?: string[];
+  [key: string]: any;
 }
 
-// Interface for the entire marketing plan data structure
-export interface MarketingPlan {
-  introduction: string;
-  company_summary: CompanySummary;
-  tools_used?: string;
-  programs_list: Record<string, MarketingProgram> | MarketingProgram[];
-  conclusion?: string;
-  how_brevo_helps_you?: any[];
-  [key: string]: any; // Allow additional properties for program details etc.
+// Interface for the entire competitor stack data structure
+export interface CompetitorStackData {
+  domain: string;
+  analysis: any;
+  competitors: Competitor[] | null;
+  metadata: {
+    analyzedAt: string;
+    userLanguage?: string;
+    version: string;
+  };
+  [key: string]: any;
 }
 
 // API log entry interface
 export interface ApiLogEntry {
-  type: 'request' | 'response';
+  type: "request" | "response";
   endpoint: string;
   data: any;
   timestamp: string;
@@ -72,9 +58,9 @@ export interface ApiLogEntry {
 
 // DB log entry interface
 export interface DbLogEntry {
-  type: 'query' | 'result' | 'check' | 'request' | 'response';
+  type: "query" | "result" | "check" | "request" | "response";
   operation: string;
   data: any;
   timestamp: string;
-  status?: 'success' | 'error';
+  status?: "success" | "error";
 }

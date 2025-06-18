@@ -1,4 +1,3 @@
-
 // Export the jokes from the YAML file as a structured object
 export const marketingJokesData = {
   jokes: [
@@ -42,6 +41,29 @@ export const marketingJokesData = {
     "Our brand guidelines are so strict, they make the CIA's classified files look like open-mic night.",
     "Ever read the fine print on a CRM contract? It's basically an invitation to a never-ending group therapy session.",
     "We talked about delivering a 'minimum viable product.' We delivered 'maximum questionable outcome.'",
-    "Only in marketing can you spend a million dollars to discover your customers like cat memes."
-  ]
+    "Only in marketing can you spend a million dollars to discover your customers like cat memes.",
+  ],
 };
+
+export const marketingJokes = [
+  "Our competitor analysis is so thorough, even our competitors are impressed.",
+  "We analyze competitors so well, they started analyzing us back.",
+  "Our competitor intelligence is like a crystal ball, but with better data.",
+  "We know more about our competitors than they know about themselves.",
+  "Our competitor analysis is so detailed, it's like we have insider information.",
+  "We track competitors so closely, we know when they're having coffee breaks.",
+  "Our competitive intelligence is sharper than a spy's toolkit.",
+  "We analyze competitors so thoroughly, we could write their business plan.",
+  "Our competitor tracking is so good, we know their moves before they do.",
+  "We study competitors so much, we're practically their business consultants.",
+  "Our competitor analysis is like having a crystal ball for business strategy.",
+  "We monitor competitors so closely, we know their office gossip.",
+  "Our competitive intelligence is so comprehensive, it's like we're their shadow.",
+  "We track competitors so well, we could predict their next move.",
+  "Our competitor analysis is so thorough, it's like we're their business partner.",
+  "We analyze competitors so deeply, we know their strengths and weaknesses better than they do.",
+  "Our competitive intelligence is so detailed, we could run their company.",
+  "We monitor competitors so closely, we know their every strategy.",
+  "Our competitor analysis is so comprehensive, it's like we're their board of directors.",
+  "We track competitors so thoroughly, we know their business better than our own.",
+];
