@@ -124,7 +124,7 @@ const Index = () => {
               </div>
 
               <div className="relative group">
-                <div className="absolute inset-0 bg-gradient-to-r from-dusty-primary/15 to-dusty-primary/10 rounded-2xl transform rotate-6 transition-all duration-300 group-hover:from-dusty-primary/25 group-hover:to-dusty-primary/20 group-hover:scale-105 group-hover:rotate-3"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-dusty-primary/15 to-dusty-primary/10 rounded-2xl transform rotate-6 transition-all duration-300 group-hover:from-dusty-primary/25 group-hover:to-dusty-primary/20 group-hover:rotate-0"></div>
                 <div className="relative bg-white rounded-xl shadow-lg p-8 transition-all duration-300 group-hover:shadow-xl">
                   <InputForm onSubmit={handleSubmit} isLoading={isLoading} />
                 </div>
