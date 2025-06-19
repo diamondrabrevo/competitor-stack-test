@@ -18,6 +18,7 @@ import ApiLogs from "@/components/ApiLogs";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { useDebugMode } from "@/hooks/useDebugMode";
 import { Separator } from "@/components/ui/separator";
+import { getCompetitorAnalysis } from "@/services/supabaseService";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -39,40 +40,41 @@ const Index = () => {
     setIsLoading(true);
     try {
       const normalizedDomain = normalizeDomain(domain);
-      console.log("Starting competitor analysis for domain:", normalizedDomain);
 
-      // Log language detection for analytics
+      // 1. Check Supabase first
+      const result = await getCompetitorAnalysis(normalizedDomain);
+      if (result.success && result.data) {
+        // Navigate to results page and pass the data
+        navigate(`/results/${encodeURIComponent(normalizedDomain)}`, {
+          state: {
+            companyDomain: normalizedDomain,
+            competitorAnalysisData: result.data.competitors_data,
+            fromDb: true,
+          },
+        });
+        setIsLoading(false);
+        return;
+      }
+
+      // 2. If not found, start analysis as before
       const userLanguage = getUserLanguage();
-      console.log("User language detected for analysis:", userLanguage);
-
-      // Add a small delay to show loading state
-      //await new Promise((resolve) => setTimeout(resolve, 100));
-
       const response = await startAnalysis(normalizedDomain);
-      console.log("Analysis response:", response);
 
       if (response.success && response.conversationId) {
-        // Navigate to results page
         navigate(`/results/${encodeURIComponent(normalizedDomain)}`, {
           state: {
             companyDomain: normalizedDomain,
             conversationId: response.conversationId,
-            userLanguage: userLanguage, // Pass language to results page
+            userLanguage: userLanguage,
           },
         });
       } else {
         const errorMessage = response.error || "Failed to start analysis";
-        console.error("Analysis failed:", errorMessage);
-
-        // Auto-enable debug logs for API failures
         setErrorOccurred(true);
         toast.error(errorMessage);
         setIsLoading(false);
       }
     } catch (error) {
-      console.error("Error in handleSubmit:", error);
-
-      // Auto-enable debug logs for unexpected errors
       setErrorOccurred(true);
       toast.error("An unexpected error occurred. Please try again.");
       setIsLoading(false);
