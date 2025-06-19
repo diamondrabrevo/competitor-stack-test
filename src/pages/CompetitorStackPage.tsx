@@ -15,6 +15,7 @@ import {
   storeCompetitorAnalysis,
   getCompetitorAnalysis,
 } from "@/services/supabaseService";
+import CompetitorStackHeaderPage from "@/components/competitor-stack/CompetitorStackHeaderPage";
 
 const CompetitorStackPage = () => {
   const navigate = useNavigate();
@@ -171,13 +172,6 @@ const CompetitorStackPage = () => {
     navigationTimeoutRef.current = setTimeout(() => navigate("/"), 100);
   };
 
-  // Validation: consider data valid if API succeeded and competitors array exists
-  const isDataComplete =
-    rawApiData?.status === "succeeded" &&
-    data &&
-    Array.isArray(data.competitors) &&
-    data.competitors.length > 0;
-
   const renderContent = () => {
     if (navigate404.current) return <div>Redirecting...</div>;
     // Always show loading until dbData is found
@@ -207,45 +201,55 @@ const CompetitorStackPage = () => {
       competitors = [];
     }
     return (
-      <main className="flex-1 flex-col items-center justify-center p-4">
-        <h2 className="text-2xl font-semibold mb-8 text-center">
-          Competitor Analysis (from Database)
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl mx-auto">
-          {competitors.map((domain, idx) => (
-            <div
-              key={domain}
-              className="bg-white rounded-lg shadow border p-6 flex flex-col"
-            >
-              <div className="mb-4 border-b pb-2 flex items-center gap-2">
-                <Layers className="h-5 w-5 text-dusty-primary" />
-                <span className="text-lg font-bold">{domain}</span>
-              </div>
-              {/* For now, just show the domain as JSON. Replace with real data when available. */}
-              <JsonViewer
-                data={{ domain }}
-                title="Competitor Data"
-                className="w-full"
-              />
+      <>
+        <CompetitorStackHeaderPage
+          companyDomain={effectiveDomain}
+          competitorAnalysisData={dbData.competitors_data}
+        />
+
+        <div className="container mx-auto mt-8 pb-24">
+          <div className="flex-1 flex-col items-center justify-center p-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl mx-auto">
+              {competitors.map((domain, idx) => (
+                <div
+                  key={domain}
+                  className="bg-white rounded-lg shadow border p-6 flex flex-col"
+                >
+                  <div className="mb-4 border-b pb-2 flex items-center gap-2">
+                    <Layers className="h-5 w-5 text-dusty-primary" />
+                    <span className="text-lg font-bold">{domain}</span>
+                  </div>
+                  {/* For now, just show the domain as JSON. Replace with real data when available. */}
+                  <JsonViewer
+                    data={{ domain }}
+                    title="Competitor Data"
+                    className="w-full"
+                  />
+                </div>
+              ))}
             </div>
-          ))}
+            {/*
+          <div className="mt-12 bg-white rounded-lg shadow-sm border p-6 w-full max-w-6xl mx-auto">
+            <h3 className="text-xl font-semibold mb-4">Complete Analysis Data</h3>
+            <JsonViewer
+              data={dbData.competitors_data}
+              title="Complete Analysis"
+              className="w-full"
+            />
+          </div>
+          */}
+          </div>
         </div>
-        <div className="mt-12 bg-white rounded-lg shadow-sm border p-6 w-full max-w-6xl mx-auto">
-          <h3 className="text-xl font-semibold mb-4">Complete Analysis Data</h3>
-          <JsonViewer
-            data={dbData.competitors_data}
-            title="Complete Analysis"
-            className="w-full"
-          />
-        </div>
-      </main>
+      </>
     );
   };
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
       <ErrorBoundary onErrorOccurred={setErrorOccurred}>
-        {renderContent()}
+        <section className="container mx-auto px-4 py-12">
+          {renderContent()}
+        </section>
       </ErrorBoundary>
       {showDebugLogs && (
         <div className="fixed bottom-4 right-4 z-[9999]">
