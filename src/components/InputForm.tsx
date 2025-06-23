@@ -57,22 +57,13 @@ const InputForm = ({ onSubmit, isLoading }: InputFormProps) => {
     // Check for domains that typically return no data
     // Removed amazon.com from the problematic domains list
     const problematicDomains = [
-      "google.com",
-      "gmail.com",
-      "outlook.com",
-      "hotmail.com",
-      "yahoo.com",
       "aol.com",
       "mail.com",
       "protonmail.com",
-      "icloud.com",
       "me.com",
       "a.com",
       "b.com",
       "c.com",
-      "microsoft.com",
-      "apple.com",
-      "facebook.com",
       "xyz.com",
       "abc.com",
       "123.com",
@@ -83,8 +74,6 @@ const InputForm = ({ onSubmit, isLoading }: InputFormProps) => {
       "demo.io",
       "app.io",
       "site.io",
-      "web.io",
-      "dev.io",
     ];
     if (problematicDomains.includes(lowercaseDomain)) {
       setDomainError(
